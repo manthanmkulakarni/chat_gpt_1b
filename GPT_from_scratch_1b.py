@@ -6,8 +6,8 @@ from torch.nn import functional as F
 from tqdm import tqdm
 
 # %%
-questions_df = pd.read_csv("/kaggle/input/pythonquestions/Questions.csv",encoding='latin-1')
-answers_df = pd.read_csv("/kaggle/input/pythonquestions/Answers.csv",encoding='latin-1')
+questions_df = pd.read_csv("/content/gdrive/MyDrive/gpt_from_scratch/archive/Questions.csv",encoding='latin-1')
+answers_df = pd.read_csv("/content/gdrive/MyDrive/gpt_from_scratch/archive/Answers.csv",encoding='latin-1')
 
 
 # %%
@@ -125,7 +125,7 @@ val_data_y = data_x[n:]
 # %%
 import pickle as pkl
 
-with open("/kaggle/working/tokenizer_tokens.pkl","wb") as f:
+with open("/content/gdrive/MyDrive/gpt_from_scratch/models/tokenizer_tokens.pkl","wb") as f:
     pkl.dump(chars,f)
 
 # %%
@@ -287,7 +287,7 @@ len(data_x)
 
 # %%
 model = BigramLanguageModel()
-model.load_state_dict(torch.load('/kaggle/input/model-weights/model_500e.pt'))
+model.load_state_dict(torch.load('/content/gdrive/MyDrive/gpt_from_scratch/models/model-2.pt'))
 m = model.half().to(device)
 # print the number of parameters in the model
 print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')
@@ -316,7 +316,7 @@ for iter in range(1000):
     loss.backward()
     optimizer.step()
     if iter % 100 == 0 and iter != 0:
-        torch.save(m.state_dict(),'/kaggle/working/model.pt')
+        torch.save(m.state_dict(),'/content/gdrive/MyDrive/gpt_from_scratch/models/model.pt')
         print("Saved model ...")
         # generate from the model
         context = torch.zeros((1, 1), dtype=torch.long, device=device)
