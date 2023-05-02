@@ -287,6 +287,7 @@ len(data_x)
 
 # %%
 model = BigramLanguageModel()
+m.load_state_dict(torch.load('/kaggle/input/model-weights/model_500e.pt'))
 m = model.half().to(device)
 # print the number of parameters in the model
 print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')
